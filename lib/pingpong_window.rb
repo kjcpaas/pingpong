@@ -14,18 +14,19 @@ class PingpongWindow < Gosu::Window
     # Gets called every 1/60 seconds
     return unless ready?
     ball.move
+    court.bounce(ball)
   end
 
   def draw
-    background.draw
+    court.draw
     ball.draw
   end
 
   private
-  attr_reader :background, :ball
+  attr_reader :court, :ball
 
   def create_game_elements
-    @background = Court.new(self)
+    @court = Court.new(self)
     @ball = Ball.new(width/2, height/2)
     @ready = true
   end

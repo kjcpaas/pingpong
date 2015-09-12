@@ -28,6 +28,17 @@ class Ball
     @image ||= Gosu::Image.new(@rmagick_image)
   end
 
+  def bounce_from_top
+    @dir_y *= -1
+  end
+
+  def bounce_from_left
+    @dir_x *= -1
+  end
+
+  alias_method :bounce_from_bottom, :bounce_from_top
+  alias_method :bounce_from_right, :bounce_from_left
+
   private
   def generate_rmagick_image
     @rmagick_image = Magick::Image.new(diameter, diameter) { self.background_color = 'none' }
