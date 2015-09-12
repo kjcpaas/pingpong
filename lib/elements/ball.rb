@@ -16,7 +16,7 @@ class Ball
   end
 
   def draw
-    image.draw(pos_x - radius, pos_y - radius, 0)
+    image.draw(pos_x - radius, pos_y - radius, 1)
   end
 
   def move
