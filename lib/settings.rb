@@ -11,4 +11,9 @@ module Settings
     WALL_THICKNESS = 10
     CENTER_THICKNESS = 4
   end
+
+  module Ball
+    COLOR = '#FFFFFF'
+    RADIUS = 25
+  end
 end
