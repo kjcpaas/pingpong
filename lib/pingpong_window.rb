@@ -1,7 +1,7 @@
 class PingpongWindow < Gosu::Window
   def initialize
-    super 1366, 768 # widescreen resolution
-    self.caption = "Pingpong"
+    super Settings::Game::WIDTH, Settings::Game::HEIGHT
+    self.caption = Settings::Game::NAME
   end
 
   def draw
