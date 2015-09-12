@@ -15,5 +15,6 @@ module Settings
   module Ball
     COLOR = '#FFFFFF'
     RADIUS = 25
+    SPEED = 7 # pixels every 1/60 of second
   end
 end
