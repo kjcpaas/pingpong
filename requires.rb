@@ -1,3 +1,5 @@
 require 'gosu'
+require 'rmagick'
 require_relative 'lib/settings'
+require_relative 'lib/elements/court'
 require_relative 'lib/pingpong_window'
