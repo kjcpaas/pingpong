@@ -19,11 +19,15 @@ class Paddle
   end
 
   def move
-    # Need to limit position to stay within court
-    @pos_y = [
-      [@pos_y + dir * speed, court.top_y].max,
-      court.bottom_y - height
-    ].min
+    @pos_y += dir * speed
+  end
+
+  def keep_top
+    @pos_y = court.top_y
+  end
+
+  def keep_bottom
+    @pos_y = court.bottom_y - height
   end
 
   def image

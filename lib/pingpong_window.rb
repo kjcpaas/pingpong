@@ -81,5 +81,13 @@ class PingpongWindow < Gosu::Window
         right: Proc.new { |ball| ball.bounce_from_right }
       })
     ]
+
+    paddle_handlers = {
+      top: Proc.new { |paddle| paddle.keep_top },
+      bottom: Proc.new { |paddle| paddle.keep_bottom }
+    }
+
+    @collisions << PaddleAndWallCollision.new(left_paddle, court, paddle_handlers)
+    @collisions << PaddleAndWallCollision.new(right_paddle, court, paddle_handlers)
   end
 end
