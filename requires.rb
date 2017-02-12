@@ -1,8 +1,6 @@
 require 'gosu'
 require 'rmagick'
-require_relative 'lib/settings'
-require_relative 'lib/collisions/ball_and_wall_collision'
-require_relative 'lib/elements/court'
-require_relative 'lib/elements/ball'
-require_relative 'lib/elements/paddle'
-require_relative 'lib/pingpong_window'
+
+Dir.glob('lib/**/*.rb').each do |filename|
+  require_relative filename
+end
