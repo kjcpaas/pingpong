@@ -4,6 +4,8 @@ class PingpongWindow < Gosu::Window
     self.caption = Settings::Game::NAME
     @ready = false
     create_game_elements
+    set_element_collisions
+    @ready = true
   end
 
   def ready?
@@ -40,9 +42,9 @@ class PingpongWindow < Gosu::Window
     # Gets called every 1/60 seconds
     return unless ready?
     ball.move
-    court.bounce(ball)
     right_paddle.move
     left_paddle.move
+    @collisions.each(&:apply_collisions)
   end
 
   def draw
@@ -68,6 +70,16 @@ class PingpongWindow < Gosu::Window
       court.right_x - Settings::Paddle::EDGE_DISTANCE - Settings::Paddle::WIDTH,
       (height - Settings::Paddle::HEIGHT)/2
     )
-    @ready = true
+  end
+
+  def set_element_collisions
+    @collisions = [
+      BallAndWallCollision.new(ball, court, {
+        top: Proc.new { |ball| ball.bounce_from_top },
+        bottom: Proc.new { |ball| ball.bounce_from_bottom },
+        left: Proc.new { |ball| ball.bounce_from_left },
+        right: Proc.new { |ball| ball.bounce_from_right }
+      })
+    ]
   end
 end

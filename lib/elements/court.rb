@@ -28,12 +28,6 @@ class Court
     @image ||= Gosu::Image.new(@rmagick_image)
   end
 
-  def bounce(ball)
-    collisions_with(ball).each do |wall|
-      ball.send("bounce_from_#{wall}")
-    end
-  end
-
   private
   def generate_rmagick_image
     court = self
@@ -64,14 +58,5 @@ class Court
   def draw_center_line(pen)
     pen.stroke(line_color).stroke_width(center_thickness)
     pen.line(width/2, 0, width/2, height)
-  end
-
-  def collisions_with(ball)
-    collisions = []
-    collisions << :top if (ball.pos_y - ball.radius) < wall_thickness
-    collisions << :bottom if (ball.pos_y + ball.radius) > (height - wall_thickness)
-    collisions << :left if (ball.pos_x - ball.radius) < wall_thickness
-    collisions << :right if (ball.pos_x + ball.radius) > (width - wall_thickness)
-    collisions
   end
 end
