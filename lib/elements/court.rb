@@ -1,5 +1,9 @@
 class Court
-  attr_reader :width, :height, :bg_color, :line_color, :wall_thickness, :center_thickness
+  attr_reader :width, :height
+  # From settings
+  attr_reader :bg_color, :line_color, :wall_thickness, :center_thickness
+  # Calculated
+  attr_reader :left_x, :right_x, :top_y, :bottom_y
 
   def initialize(window)
     @width = window.width
@@ -8,6 +12,10 @@ class Court
     @line_color = Settings::Court::LINE_COLOR
     @wall_thickness = Settings::Court::WALL_THICKNESS
     @center_thickness = Settings::Court::CENTER_THICKNESS
+    @left_x = wall_thickness
+    @right_x = width - wall_thickness - 1
+    @top_y = wall_thickness
+    @bottom_y = height - wall_thickness - 1
     generate_rmagick_image
   end
 
@@ -44,10 +52,10 @@ class Court
     pen.stroke(bg_color)
 
     corners = [
-      wall_thickness + 1,         # Upper left x
-      wall_thickness + 1,         # Upper left y
-      width - wall_thickness - 1, # Lower right x
-      height - wall_thickness - 1  # Lower right y
+      left_x,         # Upper left x
+      top_y,         # Upper left y
+      right_x, # Lower right x
+      bottom_y  # Lower right y
     ]
 
     pen.rectangle(*corners)

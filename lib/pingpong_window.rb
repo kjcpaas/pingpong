@@ -58,8 +58,16 @@ class PingpongWindow < Gosu::Window
   def create_game_elements
     @court = Court.new(self)
     @ball = Ball.new(width/2, height/2)
-    @left_paddle = LeftPaddle.new(court)
-    @right_paddle = RightPaddle.new(court)
+    @left_paddle = LeftPaddle.new(
+      court,
+      court.left_x + Settings::Paddle::EDGE_DISTANCE,
+      (height - Settings::Paddle::HEIGHT)/2
+    )
+    @right_paddle = RightPaddle.new(
+      court,
+      court.right_x - Settings::Paddle::EDGE_DISTANCE - Settings::Paddle::WIDTH,
+      (height - Settings::Paddle::HEIGHT)/2
+    )
     @ready = true
   end
 end

@@ -22,7 +22,7 @@ module Settings
     COLOR = '#FFFFFF'
     WIDTH = 15
     HEIGHT = 150
-    EDGE_DISTANCE = 75
+    EDGE_DISTANCE = 50
     SPEED = 12
   end
 end
