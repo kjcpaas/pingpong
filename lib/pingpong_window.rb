@@ -73,21 +73,23 @@ class PingpongWindow < Gosu::Window
   end
 
   def set_element_collisions
-    @collisions = [
-      BallAndWallCollision.new(ball, court, {
-        top: Proc.new { |ball| ball.bounce_from_top },
-        bottom: Proc.new { |ball| ball.bounce_from_bottom },
-        left: Proc.new { |ball| ball.bounce_from_left },
-        right: Proc.new { |ball| ball.bounce_from_right }
-      })
-    ]
-
+    ball_handlers = {
+      top: Proc.new { |ball| ball.bounce_from_top },
+      bottom: Proc.new { |ball| ball.bounce_from_bottom },
+      left: Proc.new { |ball| ball.bounce_from_left },
+      right: Proc.new { |ball| ball.bounce_from_right }
+    }
     paddle_handlers = {
       top: Proc.new { |paddle| paddle.keep_top },
       bottom: Proc.new { |paddle| paddle.keep_bottom }
     }
 
-    @collisions << PaddleAndWallCollision.new(left_paddle, court, paddle_handlers)
-    @collisions << PaddleAndWallCollision.new(right_paddle, court, paddle_handlers)
+    @collisions = [
+      BallAndWallCollision.new(ball, court, ball_handlers),
+      BallAndPaddleCollision.new(ball, left_paddle, { right_edge: ball_handlers[:left] }),
+      BallAndPaddleCollision.new(ball, right_paddle, { left_edge: ball_handlers[:right] }),
+      PaddleAndWallCollision.new(left_paddle, court, paddle_handlers),
+      PaddleAndWallCollision.new(right_paddle, court, paddle_handlers)
+    ]
   end
 end

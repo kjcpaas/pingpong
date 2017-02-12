@@ -1,5 +1,7 @@
 class Paddle
   attr_reader :court, :color, :width, :height, :pos_x, :pos_y, :speed
+  # Computed
+  attr_reader :left_edge_x, :right_edge_x
   attr_accessor :dir
 
   def initialize(court, initial_x, initial_y)
@@ -10,6 +12,8 @@ class Paddle
     @height = Settings::Paddle::HEIGHT
     @pos_x = initial_x
     @pos_y = initial_y
+    @left_edge_x = pos_x
+    @right_edge_x = pos_x + width
     @dir = 0
     generate_rmagick_image
   end
@@ -22,6 +26,7 @@ class Paddle
     @pos_y += dir * speed
   end
 
+  # These keep methods prevents paddle from leaving the court
   def keep_top
     @pos_y = court.top_y
   end
